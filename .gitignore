@@ -1,0 +1,15 @@
+/.env
+/public/bundles/
+/var/cache/
+/var/log/
+/vendor/
+/node_modules/
+/public/build/
+npm-debug.log
+yarn-error.log
+.phpunit
+/phpunit.xml
+/.web-server-pid
+.idea/
+/generated-reversed-database/
+/.php_cs.cache

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<database name="default" namespace="App\Model" defaultIdMethod="native" defaultPhpNamingMethod="underscore">
+    <table name="fos_group" idMethod="native" phpName="FosGroup">
+        <column name="id" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+        <column name="name" phpName="Name" type="VARCHAR" size="255" required="true"/>
+        <column name="gente" phpName="Roles" type="LONGVARCHAR"/>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
+    <table name="fos_user" idMethod="native" phpName="User">
+        <column name="id" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+        <column name="username" phpName="Username" type="VARCHAR" size="255"/>
+        <column name="username_canonical" phpName="UsernameCanonical" type="VARCHAR" size="255"/>
+        <column name="email" phpName="Email" type="VARCHAR" size="255"/>
+        <column name="email_canonical" phpName="EmailCanonical" type="VARCHAR" size="255"/>
+        <column name="enabled" phpName="Enabled" type="BOOLEAN" size="1" defaultValue="false"/>
+        <column name="salt" phpName="Salt" type="VARCHAR" size="255" required="true"/>
+        <column name="password" phpName="Password" type="VARCHAR" size="255" required="true"/>
+        <column name="last_login" phpName="LastLogin" type="TIMESTAMP" typehint="DateTime"/>
+        <column name="locked" phpName="Locked" type="BOOLEAN" size="1" defaultValue="false"/>
+        <column name="expired" phpName="Expired" type="BOOLEAN" size="1" defaultValue="false"/>
+        <column name="expires_at" phpName="ExpiresAt" type="TIMESTAMP"/>
+        <column name="confirmation_token" phpName="ConfirmationToken" type="VARCHAR" size="255"/>
+        <column name="password_requested_at" phpName="PasswordRequestedAt" type="TIMESTAMP" typehint="DateTime"/>
+        <column name="credentials_expired" phpName="CredentialsExpired" type="BOOLEAN" size="1" defaultValue="false"/>
+        <column name="credentials_expire_at" phpName="CredentialsExpireAt" type="TIMESTAMP"/>
+        <unique name="fos_user_U_1">
+            <unique-column name="username_canonical"/>
+        </unique>
+        <unique name="fos_user_U_2">
+            <unique-column name="email_canonical"/>
+        </unique>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
+    <table name="fos_user_group" idMethod="native" phpName="FosUserGroup">
+        <column name="fos_user_id" phpName="FosUserId" type="INTEGER" primaryKey="true" required="true"/>
+        <column name="fos_group_id" phpName="FosGroupId" type="INTEGER" primaryKey="true" required="true"/>
+        <index name="fos_user_group_FI_2">
+            <index-column name="fos_group_id"/>
+        </index>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
+</database>

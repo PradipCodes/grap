@@ -1,0 +1,13 @@
+
+propel:
+    paths:
+        schemaDir: database/
+    database:
+        connections:
+            default:
+                adapter: mysql
+                classname: Propel\Runtime\Connection\DebugPDO
+                dsn: '%env(resolve:DATABASE_URL)%'
+                user: '%env(resolve:MYSQLUSER)%'
+                password: '%env(resolve:PASSWORD)%'
+                attributes:

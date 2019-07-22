@@ -1,0 +1,32 @@
+security:
+    encoders:
+        FOS\UserBundle\Model\UserInterface:
+             id: app.password_encoder
+
+    providers:
+        munapp:
+            id: app.user_provider
+
+    firewalls:
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+            anonymous: ~
+        main:
+            pattern:        ^/
+            anonymous:      ~
+            provider:       munapp
+            form_login:
+                use_referer:        true
+            logout:
+                invalidate_session: true
+                path:       /logout
+                target:     /login
+
+    access_control:
+        - { path: ^/login,       roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/password,    roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/,            roles: [ ROLE_USER ] }
+
+    role_hierarchy:
+        ROLE_ADMIN:         [ROLE_USER]

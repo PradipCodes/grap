@@ -1,0 +1,99 @@
+{% extends "@FOSUser/layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+
+ <div>
+        <div class="login_wrapper">
+            <div class="animate form login_form">
+                {% if error %}
+                    <div class="alert alert-info">
+                        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    </div>
+                {% endif %}
+                <section class="login_content">
+                    <form class="login-form" action="{{ path("fos_user_security_check") }}" method="post">
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+                        <h1>Login</h1>
+                        <div>
+                            <input type="text" class="form-control" placeholder="Username" id="username" name="_username"
+                       value="{{ last_username }}" required="required" autofocus>
+                        </div>
+                        <div>
+                            <input type="password" class="form-control" placeholder="Password" id="password" name="_password"
+                       required="required">
+                        </div>
+                        <div>
+                            <input type="submit" class="btn btn-primary btn-lg btn-block" id="_submit" name="_submit"
+                   value="Login"/>
+                            {#<a class="reset_pass" href="#">Lost your password?</a>#}
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <div class="separator">
+                            <div class="clearfix"></div>
+                            <br />
+
+                            <div>
+                                <h1>Admin Panel</h1>
+                                <p>©2018 All Rights Reserved.</p>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    {#<div class="row" style="margin-top: 1em;">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <h1 style="text-align: center">
+                <a href="#" class="logo" style="float: none; font-size: 35px; text-align: center"><b><span class="lite">Login</span></b></a>
+            </h1>
+            <hr/>
+
+
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+
+    <form class="login-form" action="{{ path("fos_user_security_check") }}" method="post" style="margin: 15px auto 0;">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+        <div class="login-wrap">
+            <p class="login-img"><i class="icon_lock_alt"></i></p>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="icon_profile"></i></span>
+                <input type="text" class="form-control" placeholder="Username" id="username" name="_username"
+                       value="{{ last_username }}" required="required" autofocus>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="icon_key_alt"></i></span>
+                <input type="password" class="form-control" placeholder="Password" id="password" name="_password"
+                       required="required">
+            </div>
+            <label class="checkbox">
+                <input type="checkbox" value="remember-me"> Remember me
+            </label>
+            <input type="submit" class="btn btn-primary btn-lg btn-block" id="_submit" name="_submit"
+                   value="Login"/>
+        </div>
+    </form>
+
+    <div class="row" >
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="separator">
+                <div class="clearfix"></div>
+                <div style="text-align: center">
+                    #}{#<h1 > <img style="height:2em;" src="img/logo.png" alt=""></h1>#}{#
+                    <p>©2018 All Rights Reserved. Bhumlichok Tourism, Gorkha</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>#}
+
+{% endblock fos_user_content %}

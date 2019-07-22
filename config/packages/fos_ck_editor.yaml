@@ -1,0 +1,5 @@
+fos_ck_editor:
+    configs:
+        my_config:
+            toolbar: [['Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink','-','About']]
+            uiColor: "#9AB8F3"

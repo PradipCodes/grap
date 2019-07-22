@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Panel</title>
+
+    {% block head_style %}
+        <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="vendor/nprogress/nprogress.css">
+        <link rel="stylesheet" href="vendor/animate.css/animate.min.css">
+        <link rel="stylesheet" href="css/custom.min.css">
+
+        <link rel="icon" type="image/x-icon" href="/img/logo.png"/>
+    {% endblock head_style %}
+
+</head>
+
+<body class="login">
+<div>
+    <a class="hiddenanchor" id="signup"></a>
+    <a class="hiddenanchor" id="signin"></a>
+
+    <div class="login_wrapper">
+        {% block content %}{% endblock %}
+
+    </div>
+</div>
+</body>
+
+
+{% block foot_script %}
+{% endblock %}
+
+</body>
+
+</html>

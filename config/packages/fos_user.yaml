@@ -1,0 +1,9 @@
+fos_user:
+    db_driver: custom
+    firewall_name: main
+    user_class: App\Model\User
+    from_email:
+        address: "info@sofwena.com"
+        sender_name: "Sofwena adsplus"
+    service:
+        user_manager: App\Security\UserManager
