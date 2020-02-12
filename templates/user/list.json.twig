@@ -1,0 +1,20 @@
+
+{% spaceless %}
+{
+    "draw": "{{ app.request.query.all.draw }}",
+    "recordsTotal": {{ total_count }},
+    "recordsFiltered": {{ filtered_count }},
+    "data" : [
+        {% for user in users %}
+        {
+            "DT_RowId": "{{ 'user' ~ user.id }}",
+            "DT_RowClass": "{{ user.id }}",
+            "0": "{{ loop.index }}",
+            "1": "{{ user.username }}",
+            "2": "{{ user.isEnabled?'Yes':'No' }}",
+            "3": "{% include 'user/actions.html.twig' %}"
+        }{% if not loop.last %},{% endif %}
+        {% endfor %}
+    ]
+}
+{% endspaceless %}

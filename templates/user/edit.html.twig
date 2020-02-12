@@ -1,0 +1,15 @@
+{% extends 'app.html.twig' %}
+
+{% block head_style %}
+    {{ parent() }}
+{% endblock %}
+
+{% block page_title %}Edit User{% endblock %}
+
+{% block content %}
+    {{ form(form) }}
+{% endblock %}
+
+{% block foot_script %}
+    {{ parent() }}
+{% endblock %}

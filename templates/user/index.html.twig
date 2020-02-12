@@ -1,0 +1,58 @@
+{% extends 'app.html.twig' %}
+
+{% block head_style %}
+    {{ parent() }}
+    <link rel="stylesheet" href="js/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css">
+    <style>
+        #DataTables_Table_0_wrapper {
+            top: -3em;
+        }
+    </style>
+{% endblock %}
+
+{% block page_title %}Users{% endblock %}
+
+{% block content %}
+    <div class="users">
+        <a class="btn btn-primary pull-right" href="{{ path('user_add') }}" style="z-index: 999999999;position:relative;"><i class="fa fa-plus-circle"></i> Add User</a>
+        <table class="table table-striped jambo_table bulk_action">
+            <thead>
+            <tr class="headings">
+                <th class="column-title">S.No. </th>
+                <th class="column-title">Username </th>
+                <th class="column-title">Enabled </th>
+                <th class="column-title">Actions</th>
+            </tr>
+            <tr style="background: #f7f7f7;">
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block foot_script %}
+    {{ parent() }}
+    <script src="/js/datatables/media/js/jquery.dataTables.js"></script>
+    <script src="/js/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+    <script src="/js/user/user.js"></script>
+
+    <script>
+        admin.users = {
+            datatables: {
+                ajax: {
+                    url: "{{ path('user_list') }}"
+                },
+                lengthMenu: [15, 30, 45, 60, 100],
+                columnDefs: [
+                    {orderable: false, targets: [1, 3]}
+                ],
+            }
+        };
+    </script>
+{% endblock %}
