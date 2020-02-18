@@ -1,46 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
 <database name="default" namespace="App\Model" defaultIdMethod="native" defaultPhpNamingMethod="underscore">
-    <table name="fos_group" idMethod="native" phpName="FosGroup">
+    <table name="data_browser" idMethod="native" phpName="DataBrowser">
         <column name="id" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
-        <column name="name" phpName="Name" type="VARCHAR" size="255" required="true"/>
-        <column name="gente" phpName="Roles" type="LONGVARCHAR"/>
+        <column name="date" phpName="Date" type="DATE" required="true"/>
+        <column name="browser" phpName="Browser" type="VARCHAR" size="20" required="true"/>
+        <column name="count" phpName="Count" type="INTEGER" required="true"/>
         <vendor type="mysql">
             <parameter name="Engine" value="InnoDB"/>
         </vendor>
     </table>
-    <table name="fos_user" idMethod="native" phpName="User">
+    <table name="data_country" idMethod="native" phpName="DataCountry">
         <column name="id" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
-        <column name="username" phpName="Username" type="VARCHAR" size="255"/>
-        <column name="username_canonical" phpName="UsernameCanonical" type="VARCHAR" size="255"/>
-        <column name="email" phpName="Email" type="VARCHAR" size="255"/>
-        <column name="email_canonical" phpName="EmailCanonical" type="VARCHAR" size="255"/>
-        <column name="enabled" phpName="Enabled" type="BOOLEAN" size="1" defaultValue="false"/>
-        <column name="salt" phpName="Salt" type="VARCHAR" size="255" required="true"/>
-        <column name="password" phpName="Password" type="VARCHAR" size="255" required="true"/>
-        <column name="last_login" phpName="LastLogin" type="TIMESTAMP" typehint="DateTime"/>
-        <column name="locked" phpName="Locked" type="BOOLEAN" size="1" defaultValue="false"/>
-        <column name="expired" phpName="Expired" type="BOOLEAN" size="1" defaultValue="false"/>
-        <column name="expires_at" phpName="ExpiresAt" type="TIMESTAMP"/>
-        <column name="confirmation_token" phpName="ConfirmationToken" type="VARCHAR" size="255"/>
-        <column name="password_requested_at" phpName="PasswordRequestedAt" type="TIMESTAMP" typehint="DateTime"/>
-        <column name="credentials_expired" phpName="CredentialsExpired" type="BOOLEAN" size="1" defaultValue="false"/>
-        <column name="credentials_expire_at" phpName="CredentialsExpireAt" type="TIMESTAMP"/>
-        <unique name="fos_user_U_1">
-            <unique-column name="username_canonical"/>
-        </unique>
-        <unique name="fos_user_U_2">
-            <unique-column name="email_canonical"/>
-        </unique>
+        <column name="date" phpName="Date" type="DATE" required="true"/>
+        <column name="country" phpName="Country" type="VARCHAR" size="50" required="true"/>
+        <column name="count" phpName="Count" type="INTEGER" required="true"/>
         <vendor type="mysql">
             <parameter name="Engine" value="InnoDB"/>
         </vendor>
     </table>
-    <table name="fos_user_group" idMethod="native" phpName="FosUserGroup">
-        <column name="fos_user_id" phpName="FosUserId" type="INTEGER" primaryKey="true" required="true"/>
-        <column name="fos_group_id" phpName="FosGroupId" type="INTEGER" primaryKey="true" required="true"/>
-        <index name="fos_user_group_FI_2">
-            <index-column name="fos_group_id"/>
+    <table name="data_os" idMethod="native" phpName="DataOs">
+        <column name="id" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+        <column name="date" phpName="Date" type="DATE" required="true"/>
+        <column name="os" phpName="Os" type="VARCHAR" size="20" required="true"/>
+        <column name="count" phpName="Count" type="INTEGER" required="true"/>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
+    <table name="data_url" idMethod="native" phpName="DataUrl">
+        <column name="id" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+        <column name="user_id" phpName="UserId" type="INTEGER" required="true"/>
+        <column name="date" phpName="Date" type="DATE" required="true"/>
+        <column name="website" phpName="Website" type="VARCHAR" size="255" required="true"/>
+        <column name="count" phpName="Count" type="INTEGER" required="true"/>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
+    <table name="data_width" idMethod="native" phpName="DataWidth">
+        <column name="id" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+        <column name="date" phpName="Date" type="DATE" required="true"/>
+        <column name="width" phpName="Width" type="INTEGER" size="5" required="true"/>
+        <column name="count" phpName="Count" type="INTEGER" required="true"/>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
+    <table name="supply" idMethod="native" phpName="Supply">
+        <column name="id" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+        <column name="date" phpName="Date" type="DATE" required="true"/>
+        <column name="user_id" phpName="UserId" type="INTEGER" required="true"/>
+        <column name="publisher" phpName="Publisher" type="VARCHAR" size="255" required="true"/>
+        <column name="impressions" phpName="Impressions" type="INTEGER" size="40" required="true"/>
+        <column name="clicks" phpName="Clicks" type="INTEGER" required="true"/>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
+    <table name="user_profile" idMethod="native" phpName="UserProfile">
+        <column name="id" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+        <column name="user_id" phpName="UserId" type="INTEGER"/>
+        <column name="given_names" phpName="GivenNames" type="VARCHAR" size="30"/>
+        <column name="email" phpName="Email" type="VARCHAR" size="100"/>
+        <column name="mobile" phpName="Mobile" type="VARCHAR" size="20"/>
+        <column name="image" phpName="Image" type="LONGVARCHAR"/>
+        <column name="address" phpName="Address" type="VARCHAR" size="255"/>
+        <column name="outlet_id" phpName="OutletId" type="INTEGER" required="true"/>
+        <column name="created_at" phpName="CreatedAt" type="TIMESTAMP"/>
+        <index name="user_profile_FI_1">
+            <index-column name="user_id"/>
         </index>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
+    <table name="user_type" idMethod="native" phpName="UserType">
+        <column name="id" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+        <column name="code" phpName="Code" type="INTEGER" size="4" required="true"/>
+        <column name="type_name" phpName="TypeName" type="VARCHAR" size="250" required="true"/>
+        <column name="is_system" phpName="IsSystem" type="INTEGER" size="2" required="true" defaultValue="1"/>
+        <index name="code">
+            <index-column name="code"/>
+        </index>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
+    <table name="users" idMethod="native" phpName="Users">
+        <column name="id" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+        <column name="realm" phpName="Realm" type="VARCHAR" size="32"/>
+        <column name="code" phpName="Code" type="INTEGER" size="4"/>
+        <column name="username" phpName="Username" type="VARCHAR" size="128"/>
+        <column name="algorithm" phpName="Algorithm" type="VARCHAR" size="128" required="true" defaultValue="sha1"/>
+        <column name="salt" phpName="Salt" type="VARCHAR" size="128"/>
+        <column name="password" phpName="Password" type="VARCHAR" size="128"/>
+        <column name="created_at" phpName="CreatedAt" type="TIMESTAMP"/>
+        <column name="last_login" phpName="LastLogin" type="TIMESTAMP"/>
+        <column name="is_active" phpName="IsActive" type="TINYINT" required="true" defaultValue="1"/>
+        <column name="is_super_admin" phpName="IsSuperAdmin" type="TINYINT" required="true" defaultValue="0"/>
+        <index name="code">
+            <index-column name="code"/>
+        </index>
+        <unique name="user_id">
+            <unique-column name="username"/>
+            <unique-column name="realm"/>
+            <unique-column name="is_active"/>
+        </unique>
         <vendor type="mysql">
             <parameter name="Engine" value="InnoDB"/>
         </vendor>
