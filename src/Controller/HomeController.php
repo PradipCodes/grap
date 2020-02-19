@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\Type\ProfileType;
+use App\Model\DataCountryQuery;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -49,5 +50,31 @@ class HomeController extends Controller
         return $this->render('home/password.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+    /**
+     * @Route("/graph", name="graph")
+     */
+    public function graphAction(Request $request)
+    {
+
+        $dtact=array();
+        $dtaco=array();
+        $dta = DataCountryQuery::create()->limit(10)->find();
+
+
+        foreach ($dta as $dtas)
+        {
+            $dtact[]=$dtas->getCountry();
+            $dtaco[]=$dtas->getCount();
+        }
+
+        $dtact=implode('","',$dtact);
+        $dtact=sprintf('%s%s%s','"',$dtact,'"');
+        $dtaco=implode(',',$dtaco);
+        print_r($dtact);
+        print_r($dtaco);
+
+
+        return $this->render('home/graph.html.twig', ['country'=>$dtact,'count'=>$dtaco]);
     }
 }
