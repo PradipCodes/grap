@@ -51,30 +51,28 @@ class HomeController extends Controller
             'form' => $form->createView()
         ]);
     }
+
     /**
      * @Route("/graph", name="graph")
      */
     public function graphAction(Request $request)
     {
 
-        $dtact=array();
-        $dtaco=array();
+        $dtact = array();
+        $dtaco = array();
         $dta = DataCountryQuery::create()->limit(10)->find();
 
 
-        foreach ($dta as $dtas)
-        {
-            $dtact[]=$dtas->getCountry();
-            $dtaco[]=$dtas->getCount();
+        foreach ($dta as $dtas) {
+            $dtact[] = $dtas->getCountry();
+            $dtaco[] = $dtas->getCount();
         }
 
-        $dtact=implode('","',$dtact);
-        $dtact=sprintf('%s%s%s','"',$dtact,'"');
-        $dtaco=implode(',',$dtaco);
-        print_r($dtact);
-        print_r($dtaco);
+        $dtact = implode('","', $dtact);
+        $dtact = sprintf('%s%s%s', '"', $dtact, '"');
+        $dtaco = implode(',', $dtaco);
 
 
-        return $this->render('home/graph.html.twig', ['country'=>$dtact,'count'=>$dtaco]);
+        return $this->render('home/graph.html.twig', ['country' => $dtact, 'count' => $dtaco]);
     }
 }
