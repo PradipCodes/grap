@@ -11,6 +11,7 @@
 
 {% block content %}
     <div class="row" style="margin-top: 15em">
+
         <form action="/graph" method="post">
            <span> Start Date: <input type="text" name="start" value="" /> </span>
 
@@ -37,9 +38,10 @@
                     });
                 });
             </script>
-            <button type="submit">Send</button>
-
+            <input type="submit" class="btn btn-primary" name="action" value="Send">
+            <input type="submit" class="btn btn-primary" name="action" value="Export">
         </form>
+
 
 
         <canvas id="country" height="357" width="716" style="width: 573px; height: 286px;"></canvas>
