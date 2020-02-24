@@ -6,7 +6,7 @@
         "ext-iconv": "*",
         "friendsofsymfony/ckeditor-bundle": "^1.0",
         "friendsofsymfony/user-bundle": "^2.1",
-        "phpoffice/phpspreadsheet": "^1.5",
+        "phpoffice/phpspreadsheet": "^1.10",
         "propel/propel-bundle": "4.0.x-dev",
         "sensio/framework-extra-bundle": "^5.1",
         "symfony/asset": "^4.0",
