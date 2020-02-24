@@ -2,13 +2,47 @@
 
 {% block head_style %}
     {{ parent() }}
+    <!--- Date Range Picker -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
+    <!-- End Date Range Picker -->
 {% endblock %}
 
 {% block page_title %}Dashboard{% endblock %}
 
 {% block content %}
     <div class="row" style="margin-top: 15em">
-            <canvas id="country" height="357" width="716" style="width: 573px; height: 286px;"></canvas>
+        <form action="/graph" method="post">
+           <span> Start Date: <input type="text" name="start" value="" /> </span>
+
+            <script>
+                $(function() {
+                    $('input[name="start"]').daterangepicker({
+                        singleDatePicker: true,
+                        showDropdowns: true,
+                        minYear: 1901,
+                        maxYear: parseInt(moment().format('YYYY'),10)
+                    });
+                });
+            </script>
+            <span>End Date: <input type="text" name="end" value="" /></span>
+
+            <script>
+                $(function() {
+                    $('input[name="end"]').daterangepicker({
+                        singleDatePicker: true,
+                        showDropdowns: true,
+                        minYear: 1901,
+                        maxYear: parseInt(moment().format('YYYY'),10),
+
+                    });
+                });
+            </script>
+            <button type="submit">Send</button>
+
+        </form>
+
+
+        <canvas id="country" height="357" width="716" style="width: 573px; height: 286px;"></canvas>
 
     </div>
 
@@ -19,7 +53,11 @@
 
 {% block foot_script %}
     {{ parent() }}
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script src="/js/chart.js"></script>
+
     <script>
         var ctx = document.getElementById("country");
         var mybarChart = new Chart(ctx, {
@@ -36,8 +74,14 @@
                     pointHoverBorderColor: "rgba(220,220,220,1)",
                     pointBorderWidth: 1,
                     data: [{{ count|raw }}]
+
                 }]
             },
         });
+
     </script>
+
+{% endblock %}
+{% block footer %}
+{{ parent() }}
 {% endblock %}

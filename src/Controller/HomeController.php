@@ -61,16 +61,35 @@ class HomeController extends Controller
         $dtact = array();
         $dtaco = array();
         $dta = DataCountryQuery::create()->limit(10)->find();
+        if ($request->isMethod('POST'))  {
+            $start = $request->request->get('start');
+            $end=$request->request->get('end');
+            $start = strtotime($start);
+            $start = date('Y-m-d',$start);
+            print_r($start);
+            $end = strtotime($end);
+            $end = date('Y-m-d',$end);
+            print_r($end);
+            $dta = DataCountryQuery::create()->limit(10)->filterByDate(array("min" => $start, "max" => $end))->find();
+
+        }
 
 
         foreach ($dta as $dtas) {
             $dtact[] = $dtas->getCountry();
             $dtaco[] = $dtas->getCount();
+            $date[]=$dtas->getDate()->format('Y-m-d');
+
         }
 
         $dtact = implode('","', $dtact);
         $dtact = sprintf('%s%s%s', '"', $dtact, '"');
         $dtaco = implode(',', $dtaco);
+        //$date= implode('","',$date);
+       // $date = sprintf('%s%s%s', '"', $date, '"');
+
+        //print_r($date);
+
 
 
         return $this->render('home/graph.html.twig', ['country' => $dtact, 'count' => $dtaco]);
