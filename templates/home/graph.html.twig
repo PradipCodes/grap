@@ -13,35 +13,34 @@
     <div class="row" style="margin-top: 15em">
 
         <form action="/graph" method="post">
-           <span> Start Date: <input type="text" name="start" value="" /> </span>
+            <span> Start Date: <input type="text" name="start" value=""/> </span>
 
             <script>
-                $(function() {
+                $(function () {
                     $('input[name="start"]').daterangepicker({
                         singleDatePicker: true,
                         showDropdowns: true,
                         minYear: 1901,
-                        maxYear: parseInt(moment().format('YYYY'),10)
+                        maxYear: parseInt(moment().format('YYYY'), 10)
                     });
                 });
             </script>
-            <span>End Date: <input type="text" name="end" value="" /></span>
+            <span>End Date: <input type="text" name="end" value=""/></span>
 
             <script>
-                $(function() {
+                $(function () {
                     $('input[name="end"]').daterangepicker({
                         singleDatePicker: true,
                         showDropdowns: true,
                         minYear: 1901,
-                        maxYear: parseInt(moment().format('YYYY'),10),
+                        maxYear: parseInt(moment().format('YYYY'), 10),
 
                     });
                 });
             </script>
-            <input type="submit" class="btn btn-primary" name="action" value="Send">
+            <input type="submit" class="btn btn-primary" name="action" value="Filter">
             <input type="submit" class="btn btn-primary" name="action" value="Export">
         </form>
-
 
 
         <canvas id="country" height="357" width="716" style="width: 573px; height: 286px;"></canvas>
@@ -85,5 +84,5 @@
 
 {% endblock %}
 {% block footer %}
-{{ parent() }}
+    {{ parent() }}
 {% endblock %}

@@ -72,7 +72,7 @@ class HomeController extends Controller
         $ct = array();
         $dta = DataCountryQuery::create()->limit(10)->find();
         if ($request->isMethod('POST')) {
-            if ($request->request->get('action') == 'Send') {
+            if ($request->request->get('action') == 'Filter') {
                 $start = $request->request->get('start');
                 $end = $request->request->get('end');
                 $start = strtotime($start);
