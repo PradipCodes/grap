@@ -4,6 +4,9 @@ namespace App\Controller;
 
 use App\Form\Type\ProfileType;
 use App\Model\DataCountryQuery;
+//for using pdf download
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -46,7 +49,6 @@ class HomeController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $userManager = $this->container->get('fos_user.user_manager');
             $userManager->updateUser($user);
-
             $this->get('session')->getFlashBag()->add(
                 'success',
                 'Password was successfully updated.'
@@ -95,23 +97,32 @@ class HomeController extends Controller
         if ($request->request->get('action') == 'Export') {
             $start = $request->request->get('start');
             $end = $request->request->get('end');
+            $start = strtotime($start);
+            $start = date('Y-m-d', $start);
+            $end = strtotime($end);
+            $end = date('Y-m-d', $end);
+            $dta = DataCountryQuery::create()->filterByDate(array("min" => $start, "max" => $end))->find();
             $spreadsheet = new Spreadsheet();
             /* @var $sheet \PhpOffice\PhpSpreadsheet\Writer\Xlsx\Worksheet */
             $sheet = $spreadsheet->getActiveSheet();
             $sheet->setCellValue('A1', 'Country');
             $sheet->setCellValue('B1', 'Count');
+            $sheet->setCellValue('C1', 'Date');
+            $dae1=array();
 
             //cell column value set to 1
             $i = 1;
             foreach ($dta as $kas) {
-                //will increase cells column vallue by 1
+                //will increase cells column value by 1
                 $i = $i + 1;
                 $ctry[$i] = $kas->getCountry();
                 $ct[$i] = $kas->getCount();
+                $dae1[$i]=$kas->getDate('Y-m-d');
                 //will set cell with A1,A2 and add value according to array
                 $sheet->setCellValue('A' . $i, $ctry[$i]);
                 //will set cell with A1,A2 and add value according to array
                 $sheet->setCellValue('B' . $i, $ct[$i]);
+                $sheet->setCellValue('C' . $i, $dae1[$i]);
 
 
             }
@@ -139,39 +150,39 @@ class HomeController extends Controller
         // $date = sprintf('%s%s%s', '"', $date, '"');
 
         //print_r($date);
+        if ($request->request->get('action') == 'Pdf') {
+            $pdfOptions = new Options();
+            $pdfOptions->set('defaultFont', 'Arial');
+
+            // Instantiate Dompdf with our options
+            $dompdf = new Dompdf($pdfOptions);
+
+            // Retrieve the HTML generated in our twig file
+            $html = $this->renderView('home/graph.html.twig', ['country' => $dtact, 'count' => $dtaco,
+                'title' => "Welcome to our PDF Test"
+            ]);
+
+            // Load HTML to Dompdf
+            $dompdf->loadHtml($html);
+
+            // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+            $dompdf->setPaper('A4', 'portrait');
+
+            // Render the HTML as PDF
+            $dompdf->render();
+
+            // Output the generated PDF to Browser (force download)
+            $dompdf->stream("mypdf.pdf", [
+                "Attachment" => true
+            ]);
+        }
 
 
         return $this->render('home/graph.html.twig', ['country' => $dtact, 'count' => $dtaco]);
+
     }
 
-    /**
-     * @Route("/export", name="export")
-     */
-    public function exportAction(Request $request)
-    {
-        if ($request->isMethod('POST')) {
-            $spreadsheet = new Spreadsheet();
-            /* @var $sheet \PhpOffice\PhpSpreadsheet\Writer\Xlsx\Worksheet */
-            $sheet = $spreadsheet->getActiveSheet();
-            $sheet->setCellValue('A1', 'Hello World !');
-            $sheet->setCellValue('A2', 'Hell');
 
-            $sheet->setTitle("My First Worksheet");
-
-            // Create your Office 2007 Excel (XLSX Format)
-            $writer = new Xlsx($spreadsheet);
-
-            // Create a Temporary file in the system
-            $fileName = 'my_first_excel_symfony4.xlsx';
-            $temp_file = tempnam(sys_get_temp_dir(), $fileName);
-
-            // Create the excel file in the tmp directory of the system
-            $writer->save($temp_file);
-
-            // Return the excel file as an attachment
-            return $this->file($temp_file, $fileName, ResponseHeaderBag::DISPOSITION_INLINE);
-        }
-    }
 
 
 }
