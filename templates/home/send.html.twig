@@ -1,0 +1,56 @@
+{% extends 'app.html.twig' %}
+
+{% block head_style %}
+    {{ parent() }}
+    <script>
+        var string = document.getElementById('email');
+
+        function validateEmails(string) {
+            var regex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+            var result = string.replace(/\s/g, "").split(/,|;/);
+            for (var i = 0; i < result.length; i++) {
+                if (!regex.test(result[i])) {
+                    alert("Invalid email");
+                    return false;
+                }
+            }
+            return true;
+        }
+    </script>
+{% endblock %}
+{% block content %}
+    <form action="/send" method="post">
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email"><br><br>
+        </div>
+        <div class="form-group">
+            <label for="subject">Subject:</label>
+            <input type="text" id="subject" name="subject"><br><br>
+        </div>
+        <div class="form-group">
+            <label for="message">Type your message here</label>
+            <textarea class="form-control" id="message" name="message" rows="3"></textarea>
+        </div>
+
+        <input type="submit" class="btn btn-primary" name="action" value="Send">
+    </form>
+
+
+    <canvas id="country" height="357" width="716" style="width: 573px; height: 286px;"></canvas>
+
+    </div>
+
+{% endblock %}
+
+
+
+
+{% block foot_script %}
+    {{ parent() }}
+
+
+{% endblock %}
+{% block footer %}
+    {{ parent() }}
+{% endblock %}
