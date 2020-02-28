@@ -14,4 +14,5 @@ return [
     Symfony\Bundle\WebServerBundle\WebServerBundle::class => ['dev' => true],
     Propel\Bundle\PropelBundle\PropelBundle::class => ['all' => true],
     FOS\CKEditorBundle\FOSCKEditorBundle::class => ['all' => true],
+    MediaFigaro\GoogleAnalyticsApi\GoogleAnalyticsApi::class=>['all'=>true],
 ];
