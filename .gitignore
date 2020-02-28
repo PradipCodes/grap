@@ -2,7 +2,7 @@
 /public/bundles/
 /var/cache/
 /var/log/
-/vendor/
+/vendor
 /node_modules/
 /public/build/
 npm-debug.log
